@@ -1,0 +1,88 @@
+<html>
+	<head>
+		<script type="text/javascript" src="http://awstest.newvisions.org/javascripts/api/tableau-2.0.0.min.js" ></script>
+	</head>
+	<body>
+		<div> 
+			<button type="button" onClick="clearFilters()">Clear Filters</button>
+		</div>
+		<div>
+			<form name="checkfilter" id="checkfilter" onchange="addValuesToFilter()" action="">
+				<input type="checkbox" name="schooltype" value="6 to 8" checked="true">6 to 8<br>
+				<input type="checkbox" name="schooltype" value="6 to 12" checked="true">6 to 12<br>
+				<input type="checkbox" name="schooltype" value="Charter" checked="true">Charter<br>
+				<input type="checkbox" name="schooltype" value="K to 5" checked="true">K to 5<br>
+				<input type="checkbox" name="schooltype" value="K to 12" checked="true">K to 12<br>
+				<input type="checkbox" name="schooltype" value="Small HS" checked="true">Small HS<br>
+				<input type="checkbox" name="schooltype" value="Large HS" checked="true">Large HS<br>
+				<input type="checkbox" name="schooltype" value="Transfer" checked="true">Transfer			
+			</form>
+		</div>
+	</body>
+</html>
+
+<script>
+	var viz, workbook, activeSheet, activeWorksheet, selectWorksheet;
+	
+	function initializeViz() {
+	  var placeholderDiv = document.getElementById("tableauViz");
+	  var url = "http://awstest.newvisions.org/#/views/testworkbook/Whoareourschools";
+	  var options = {
+		width: 1050,
+		height: 700,
+		hideTabs: true,
+		hideToolbar: true,
+		onFirstInteractive: function () {
+		  workbook = viz.getWorkbook();
+		  // get the active sheet (ie tab) in the workbook
+		  activeSheet = workbook.getActiveSheet();
+		  // get the array of worksheets in this sheet
+		  activeWorksheet = activeSheet.getWorksheets();
+		  //
+		  selectWorksheet = activeWorksheet.filter(function( obj ){
+			return obj['_impl']['$0'] == "Sheet 12";
+		  });
+		  selectWorksheet = selectWorksheet[0];
+		  }
+	  };
+	  viz = new tableau.Viz(placeholderDiv, url, options);
+	}
+	
+	initializeViz();
+	
+	function filterSingleValue() {
+		selectWorksheet.applyFilterAsync(
+			"Schooltype",
+			"Transfer",
+			tableau.FilterUpdateType.REPLACE);
+	}
+	
+	function clearFilters() {
+		selectWorksheet.clearFilterAsync("Schooltype");
+		for (i = 0; i < 8; i++){
+			document.checkfilter["schooltype"][i].checked = true;
+		}
+	}
+	
+	function addValuesToFilter() {
+		var arrayToUse = getCheckArray();
+		selectWorksheet.applyFilterAsync(
+			"Schooltype",
+			arrayToUse,
+			tableau.FilterUpdateType.REPLACE);
+	}
+	
+	function getCheckArray() {
+		var names = [];
+		for (i = 0; i < 8; i++){
+			if (document.checkfilter["schooltype"][i].checked){
+				names.push(document.checkfilter["schooltype"][i].value);
+			}
+		}
+		return names;
+	}
+	
+	//document.getElementById("checkfilter").addEventListener("change", addValuesToFilter() );
+	
+</script>
+
