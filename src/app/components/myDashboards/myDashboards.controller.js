@@ -3,10 +3,8 @@
 
   angular.module('user-manager')
 
-  .controller('MyProfileController', function (LoggedInUserService) {
+  .controller('MyDashController', function (LoggedInUserService) {
     var self = this;
-    self.state = LoggedInUserService.state;
-    LoggedInUserService.loadLoggedInUserProfile(true);
 
   });
 
