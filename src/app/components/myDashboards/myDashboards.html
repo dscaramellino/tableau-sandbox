@@ -1,9 +1,25 @@
+
 <div class="container">
 
-    <div class="col-md-12">
+  <div class="row">
 
+  <div class= "col-md-2">
+    <h4>Set Filter</h4>
+    <div class="checkbox" ng-repeat="(key, value) in myDashCtrl.filterOptions">
+      <label>
+        <input type="checkbox" ng-value="key" ng-model="myDashCtrl.filterOptions[key]">
+        <span ng-bind="key"></span>
+      </label>
     </div>
+  </div>
+
+  <div class="col-md-10">
+    <ds-dashboard-widget></ds-dashboard-widget>
+  </div>
+
+  </div>
+
+
+
 
 </div>
-
-

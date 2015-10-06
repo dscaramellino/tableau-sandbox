@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('user-manager')
+    .module('tableau-sandbox')
     .config(function ($stateProvider, $urlRouterProvider) {
 
       $urlRouterProvider.otherwise('/myProfile');

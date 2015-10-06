@@ -123,6 +123,16 @@ th:nth-child(6), th:nth-child(7), th:nth-child(8) {
   padding-left: 5px;
 }
 
+.red {
+  background-color: red;
+
+}
+
+iframe {
+  margin-top: 20px;
+  margin-left: 65px;
+}
+
 /**
  *  Do not remove this comments bellow. It's the markers used by gulp-inject to inject
  *  all your sass files automatically

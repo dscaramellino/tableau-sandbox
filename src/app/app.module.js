@@ -3,6 +3,6 @@
 
   angular
 
-  .module('user-manager', ['ngAnimate', 'ngResource', 'ui.router', 'ui.bootstrap', 'angular-md5']);
+  .module('tableau-sandbox', ['ngAnimate', 'ngResource', 'ui.router', 'ui.bootstrap', 'angular-md5']);
 
 })();
