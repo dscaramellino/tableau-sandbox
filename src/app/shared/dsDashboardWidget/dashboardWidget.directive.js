@@ -8,63 +8,60 @@
       restrict: 'E',
 
       link: function(scope, element, attrs) {
-        console.log(attrs)
-      initializeViz();
 
-      var viz, workbook, activeSheet, worksheets, activeWorksheet;
+        initializeViz();
 
-      function initializeViz() {
-        var url = "http://awstest.newvisions.org/#/views/testworkbook/Whoareourschools";
-        var options = {
-        width: 1050,
-        height: 700,
-        hideTabs: true,
-        hideToolbar: true,
-        onFirstInteractive: function () {
-            workbook = viz.getWorkbook();
-            // get the active sheet (ie tab) in the workbook
-            activeSheet = workbook.getActiveSheet();
-            // get the array of worksheets in this sheet
-            worksheets = activeSheet.getWorksheets();
-            console.log(worksheets);
-            activeWorksheet = getWorksheetByName(worksheets, "Sheet 2");
-            console.log(activeWorksheet);
-            applyFilter();
-          }
-        };
-        viz = new tableau.Viz(element, url, options);
-      }
+        var viz, workbook, activeSheet, worksheets, activeWorksheet;
 
-      function applyFilter() {
-        var selectedFilters = getSelectedFilters();
-        activeWorksheet.applyFilterAsync(
-        "Schooltype",
-        selectedFilters,
-        tableau.FilterUpdateType.REPLACE);
-      }
-
-      function getWorksheetByName(worksheets, name) {
-        var worksheet;
-        for (var i=0; i<worksheets.length; i++) {
-          var thisWorksheet = worksheets[i];
-          var thisWorksheetName = thisWorksheet.getName();
-          if (thisWorksheetName === name) {
-            worksheet = thisWorksheet;
-            break;
-          }
+        function initializeViz() {
+          var url = "http://awstest.newvisions.org/#/views/testworkbook/Whoareourschools";
+          var options = {
+          width: 1050,
+          height: 700,
+          hideTabs: true,
+          hideToolbar: true,
+          onFirstInteractive: function () {
+              workbook = viz.getWorkbook();
+              // get the active sheet (ie tab) in the workbook
+              activeSheet = workbook.getActiveSheet();
+              // get the array of worksheets in this sheet
+              worksheets = activeSheet.getWorksheets();
+              activeWorksheet = getWorksheetByName(worksheets, "Sheet 2");
+              applyFilter();
+            }
+          };
+          viz = new tableau.Viz(element, url, options);
         }
-        return worksheet;
-      }
 
-      function getSelectedFilters() {
-        var filterOptions = scope.myDashCtrl.filterOptions;
-        var selectedFilters = [];
-        for (var key in filterOptions) {
-          if (filterOptions[key]) selectedFilters.push(key);
+        function applyFilter() {
+          var selectedFilters = getSelectedFilters();
+          activeWorksheet.applyFilterAsync(
+          "Schooltype",
+          selectedFilters,
+          tableau.FilterUpdateType.REPLACE);
         }
-        return selectedFilters;
-      }
 
+        function getWorksheetByName(worksheets, name) {
+          var worksheet;
+          for (var i=0; i<worksheets.length; i++) {
+            var thisWorksheet = worksheets[i];
+            var thisWorksheetName = thisWorksheet.getName();
+            if (thisWorksheetName === name) {
+              worksheet = thisWorksheet;
+              break;
+            }
+          }
+          return worksheet;
+        }
+
+        function getSelectedFilters() {
+          var filterOptions = scope.myDashCtrl.filterOptions;
+          var selectedFilters = [];
+          for (var key in filterOptions) {
+            if (filterOptions[key]) selectedFilters.push(key);
+          }
+          return selectedFilters;
+        }
 
       }
     }
