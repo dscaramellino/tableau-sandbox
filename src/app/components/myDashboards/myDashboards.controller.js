@@ -6,19 +6,15 @@
   .controller('MyDashController', function () {
     var self = this;
 
-    self.filterOptions = {
+    self.schoolTypeFilterOptions = {
       "6 to 8": true,
-      "6 to 12": false,
+      "6 to 12": true,
       "Charter": true,
-      "K to 5": false,
-      "K to 12": false,
-      "Small HS": false,
-      "Large HS": false,
-      "Transfer": false
-    }
-
-    self.applyFilter = function() {
-
+      "K to 5": true,
+      "K to 12": true,
+      "Small HS": true,
+      "Large HS": true,
+      "Transfer": true
     }
 
   });

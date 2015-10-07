@@ -3,18 +3,19 @@
 
   <div class="row">
 
-  <div class= "col-md-2">
+  <div class="col-sm-2">
     <h4>Set Filter</h4>
-    <div class="checkbox" ng-repeat="(key, value) in myDashCtrl.filterOptions">
+    <div class="checkbox" ng-repeat="(key, value) in myDashCtrl.schoolTypeFilterOptions">
       <label>
-        <input type="checkbox" ng-value="key" ng-model="myDashCtrl.filterOptions[key]">
+        <input type="checkbox" ng-value="key" ng-model="myDashCtrl.schoolTypeFilterOptions[key]">
         <span ng-bind="key"></span>
       </label>
     </div>
+    <!-- <pre>{{myDashCtrl.schoolTypeFilterOptions || json}}</pre> -->
   </div>
 
-  <div class="col-md-10">
-    <ds-dashboard-widget></ds-dashboard-widget>
+  <div class="col-sm-10">
+    <ds-tableau-viz school-type-filter-options="myDashCtrl.schoolTypeFilterOptions" worksheet-name="Sheet 12" url="http://awstest.newvisions.org/#/views/testworkbook/Whoareourschools"></ds-tableau-viz>
   </div>
 
   </div>
